@@ -1,8 +1,6 @@
 name: cache-unit-tests
 on:
   push:
-    branches:
-      - main
     paths-ignore:
       - '**.md'
   pull_request:
@@ -38,6 +36,12 @@ jobs:
     # without these to just compile the cache package
     - name: Install root npm packages
       run: npm ci
+
+    - name: Compile http-client package
+      run: |
+        npm ci
+        npm run tsc
+      working-directory: packages/http-client
 
     - name: Compile cache package
       run: |
